@@ -18,8 +18,35 @@ app.use(session({
 }))
 
 app.get('/', function (req, res, next) {
+
 //   res.send('you viewed this page ' + req.session.views['/bar'] + ' times')
-    res.send('Hello session!')
+    
+    console.log(req.session)
+    /*
+    
+    '/'으로 접속했을 때 
+    1. session 미들웨어 작동되고,
+    2. req 객체의 session 속성값으로 자동으로 추가 되는구나!
+
+    Session {
+        cookie: { 
+            path: '/', 
+            _expires: null, 
+            originalMaxAge: null, 
+            httpOnly: true 
+        }
+    }
+    */
+    
+    // memoryStore에 저장되어 restart하면 num이 0으로 reset된다.
+    // memory 같은 휘발성 보다는 어디에 저장하는 게 좋을까?
+    if (req.session.num === undefined) {
+        req.session.num = 1
+    } else {
+        req.session.num = req.session.num + 1
+    }
+    
+    res.send(`views: ${req.session.num}`)
 })
 
 app.listen(3000, function () {
