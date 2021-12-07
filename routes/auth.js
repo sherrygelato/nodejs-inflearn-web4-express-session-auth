@@ -38,6 +38,13 @@ router.post('/login_process', function (request, response) {
   if (email === authData.email && password === authData.password) {
     // success login!
     console.log('success login!')
+
+    // 세션 데이터 어떤 데이터 저장할 것인가?
+    // 로그인 상태 정보, 페이지 접근할 때마다 닉네임 같은 것 세션에 저장
+
+    request.session.is_logined = true;
+    request.session.nickname = authData.nickname;
+
     response.send('Welcome!')
   } else {
     // failed login!
