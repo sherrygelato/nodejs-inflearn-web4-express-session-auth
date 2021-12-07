@@ -54,7 +54,14 @@ router.post('/login_process', function (request, response) {
   }
 
   // response.redirect(`/topic/${title}`);
+});
+  
+// destroy : 세션이 삭제됨
+router.get('/logout', function (request, response) {
+  request.session.destroy(function (err) {
+    response.redirect('/');
   });
+})
 
 module.exports = router;
   
