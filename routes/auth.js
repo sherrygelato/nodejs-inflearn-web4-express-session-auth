@@ -46,7 +46,9 @@ router.post('/login_process', function (request, response) {
     request.session.nickname = authData.nickname;
 
     // response.send('Welcome!')
-    response.redirect(`/`)
+    request.session.save(function(){
+      response.redirect(`/`);
+    });
   } else {
     // failed login!
     console.log('failed login!')
