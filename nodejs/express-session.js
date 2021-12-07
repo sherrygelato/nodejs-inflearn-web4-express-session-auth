@@ -16,7 +16,9 @@ app.use(session({
   saveUninitialized: true,
   // default = true 세션 필요전까지 세션 구동 안한다. 
   // false는 무조건 구동이기에, 서버에 큰 부담
-  store: new FileStore() // session-file-store
+  store: new FileStore()
+  // session-file-store
+  // req.headers => 
 }))
 
 app.get('/', function (req, res, next) {
