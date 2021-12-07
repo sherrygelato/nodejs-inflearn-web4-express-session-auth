@@ -1,6 +1,7 @@
 var express = require('express')
 var parseurl = require('parseurl')
 var session = require('express-session') // 모듈로서 사용하기
+var FileStore = require('session-file-store')(session);
 
 var app = express()
 
@@ -12,9 +13,10 @@ app.use(session({
   secret: 'keyboard cat', // 필수요건 => 개인 정보니, 별도 파일에 
   resave: false,
   // default = false 세션 데이터 바뀌기 전까진 저장소에 저장 안함
-  saveUninitialized: true
+  saveUninitialized: true,
   // default = true 세션 필요전까지 세션 구동 안한다. 
   // false는 무조건 구동이기에, 서버에 큰 부담
+  store: new FileStore() // session-file-store
 }))
 
 app.get('/', function (req, res, next) {
